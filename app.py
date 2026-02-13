@@ -20,16 +20,14 @@ def init_db():
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
 
-    # Drop table if schema outdated
-    c.execute("DROP TABLE IF EXISTS leaderboard")
-
     c.execute("""
-        CREATE TABLE leaderboard (
-            name TEXT,
-            score REAL,
-            timestamp TEXT
-        )
-    """)
+            CREATE TABLE IF NOT EXISTS leaderboard (
+                name TEXT,
+                score REAL,
+                timestamp TEXT
+            )
+        """)
+
     conn.commit()
     conn.close()
 
@@ -180,14 +178,13 @@ charge,discharge,grid_import,grid_export
     st.markdown("""
 Allowed solution methods:
 
-- Reinforcement Learning (PPO, SAC, DDPG, etc.)
+- Reinforcement Learning (PPO, DQN, ...)
 - Particle Swarm Optimization
 - Genetic Algorithms
-- MILP / Linear Programming
-- Model Predictive Control
-- Hybrid ML + Optimization
+- NN
+- ACO
+- ABC
 
-This is a large-scale constrained sequential optimization problem.
 """)
 
 # ==========================================================
